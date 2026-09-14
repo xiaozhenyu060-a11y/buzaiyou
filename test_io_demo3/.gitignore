@@ -1,0 +1,25 @@
+# 密钥与本地配置：绝对不要提交
+.env
+.env.local
+
+# Python 字节码与缓存
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 备份与产物
+*.bak
+*.bak_v1
+*.orig
+*.log
+trace.jsonl
+permissions.jsonl
+.context_artifacts/
