@@ -1,19 +1,8 @@
 """文件读取的前置合规检查。
 
-调用方语义（保持向后兼容）：
-    status, reason = check_path(Path(...))
       "blocked" —— 直接拒绝（敏感后缀、不存在、不是文件、符号链接越界）
       "ask"     —— 不在白名单，需要问用户
       "allow"   —— 在白名单，直接放行
-
-本轮修掉的三处：
-  1. 白名单原来硬编码 + 塞了个 `expanduser("~/Documents")`，
-     在 Windows 上等于把 C:\\Users\\<你>\\Documents 整个目录悄悄放行。
-     现在白名单只来自 Config.ALLOWED_ROOTS（环境变量显式声明的）。
-  2. `resoleve.relative_to(root)` 的真值判断：relative_to 返回 `PosixPath('.')` 时
-     虽然为真，但"是否在根内"语义上只能靠**有没有抛 ValueError** 判断。
-  3. 不校验符号链接 —— junction / symlink 可以指向白名单外的真实文件，
-     字符串层面看路径还在白名单里。现在用 realpath 做二次比对，越界直接 blocked。
 """
 from __future__ import annotations
 
@@ -88,6 +77,8 @@ def check_path(path: Path, expect: str = "file") -> tuple[str, str]:
     if expect == "dir":
         if not resolved.is_dir():
             return "blocked", f"不是目录：{resolved}（如果是文件请用 read_file）"
+    elif expect == "any":
+        pass  # 文件、目录都接受（grep_file 就是这种：既能搜单文件也能搜整个目录）
     elif not resolved.is_file():
         return "blocked", f"非文件类型：{resolved}（如果是目录请用 list_dir）"
 

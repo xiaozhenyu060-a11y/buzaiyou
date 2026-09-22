@@ -6,7 +6,8 @@ main.py 里已经调用。
 """
 from tools.date_tool import get_current_date  # noqa: F401
 from tools.error_tool import trigger_error  # noqa: F401
+from tools.grep_file import grep_file  # noqa: F401
 from tools.list_dir import list_dir  # noqa: F401
 from tools.read_file import read_file  # noqa: F401
 
-__all__ = ["get_current_date", "trigger_error", "list_dir", "read_file"]
+__all__ = ["get_current_date", "trigger_error", "grep_file", "list_dir", "read_file"]

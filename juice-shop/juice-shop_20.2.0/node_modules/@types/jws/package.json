@@ -1,0 +1,33 @@
+{
+    "name": "@types/jws",
+    "version": "3.2.11",
+    "description": "TypeScript definitions for jws",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jws",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Justin Beckwith",
+            "githubUsername": "JustinBeckwith",
+            "url": "https://github.com/JustinBeckwith"
+        },
+        {
+            "name": "Denis Olsem",
+            "githubUsername": "dolsem",
+            "url": "https://github.com/dolsem"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/jws"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "peerDependencies": {},
+    "typesPublisherContentHash": "e14c18890bc7e227c2c83629758975dc06fa5e61dab8e3f3d858f2474ba31bf0",
+    "typeScriptVersion": "5.2"
+}

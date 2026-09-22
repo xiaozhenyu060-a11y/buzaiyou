@@ -9,7 +9,7 @@ from middleware.registry import describe_middleware
 from tools.registry import assert_tools_loaded
 
 #: 期望必须注册成功的工具名（漏 import 会在这里被抓住）
-EXPECTED_TOOLS = {"read_file", "list_dir", "get_current_date", "trigger_error"}
+EXPECTED_TOOLS = {"read_file", "list_dir", "grep_file", "get_current_date", "trigger_error"}
 
 
 def print_roots() -> None:

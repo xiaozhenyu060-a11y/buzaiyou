@@ -1,0 +1,26 @@
+{
+    "keepSettings": {
+        "type": 1,
+        "amount": 2
+    },
+    "auditFilename": "logs/audit.json",
+    "hashType": "md5",
+    "extension": "",
+    "files": [
+        {
+            "date": 1789870523261,
+            "name": "D:\\肖\\juice-shop_20.2.0\\logs\\access.log.2026-09-20",
+            "hash": "ea55b7b385ca9b1124daba5d6bde1ec3"
+        },
+        {
+            "date": 1789871340500,
+            "name": "D:\\pyhc\\pythonn\\io_ox_0.2\\juice-shop\\juice-shop_20.2.0\\logs\\access.log.2026-09-20",
+            "hash": "e1b4d2af7d4860b7994c3bf1c819cec4"
+        },
+        {
+            "date": 1789971055787,
+            "name": "D:\\pyhc\\pythonn\\io_ox_0.2\\juice-shop\\juice-shop_20.2.0\\logs\\access.log.2026-09-21",
+            "hash": "b607c9a88c353089b689138c9f19f370"
+        }
+    ]
+}

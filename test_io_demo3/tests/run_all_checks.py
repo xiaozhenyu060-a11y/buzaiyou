@@ -129,7 +129,9 @@ def c_tools_registered() -> str:
     import tools  # noqa: F401  触发注册
     from tools.registry import assert_tools_loaded
 
-    names = assert_tools_loaded({"read_file", "list_dir", "get_current_date", "trigger_error"})
+    names = assert_tools_loaded(
+        {"read_file", "list_dir", "grep_file", "get_current_date", "trigger_error"}
+    )
     return f"{len(names)} 个：{', '.join(sorted(names))}"
 
 
@@ -230,6 +232,32 @@ def c_middleware_order() -> str:
     return " > ".join(f"{p}:{n}" for p, n in order)
 
 
+def c_grep_file() -> str:
+    from tools.grep_file import grep_file
+
+    out = grep_file.invoke({"pattern": "class Config", "path": str(ROOT)})
+    assert "config.py:" in out, f"应该搜到 config.py 里的 class Config：{out[:120]!r}"
+
+    empty = grep_file.invoke({"pattern": "", "path": str(ROOT)})
+    assert "不能为空" in empty, f"空 pattern 应被拦：{empty!r}"
+
+    bad = grep_file.invoke({"pattern": "[unclosed", "path": str(ROOT)})
+    assert "正则" in bad, f"坏正则应给可读提示：{bad!r}"
+
+    missing = grep_file.invoke({"pattern": "x", "path": str(ROOT / "无此目录")})
+    assert "不存在" in missing, f"缺失路径应被拦：{missing!r}"
+
+    capped = grep_file.invoke({"pattern": "e", "path": str(ROOT)})
+    assert "已达上限" in capped, "海量命中的时候必须提示结果不完整"
+
+    # 敏感文件不该被搜出来（包括 .env.example 这种变体）
+    secret = grep_file.invoke({"pattern": "DEEPSEEK_API_KEY", "path": str(ROOT)})
+    for leaked in (".env:", ".env.example", ".env.bak"):
+        assert leaked not in secret, f"敏感文件 {leaked} 不该被扫进来：{secret[:200]!r}"
+
+    return "正常搜索 + 4 类边界 + 敏感文件过滤"
+
+
 def c_permission_map() -> str:
     from middleware.file_permission import _permission_mode
 
@@ -291,6 +319,7 @@ def main() -> int:
         ("工具：读文件按字符截断", c_read_file_chars),
         ("工具：读文件 3 种错误提示", c_read_file_errors),
         ("工具：列目录正常", c_list_dir),
+        ("工具：grep 搜索", c_grep_file),
         ("工具：故意报错工具", c_error_tool),
         ("中间件：优先级顺序", c_middleware_order),
         ("中间件：权限映射四类", c_permission_map),

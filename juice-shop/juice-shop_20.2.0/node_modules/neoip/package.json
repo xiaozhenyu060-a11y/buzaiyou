@@ -1,0 +1,30 @@
+{
+	"name": "neoip",
+	"version": "2.1.0",
+	"contributors": [
+		"Fedor Indutny <fedor@indutny.com>",
+		"Mike Hall <michael.hall@zaptic.com>"
+	],
+	"homepage": "https://github.com/zaptic/neoip",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/zaptic/neoip.git"
+	},
+	"files": [
+		"lib",
+		"README.md"
+	],
+	"main": "lib/ip.js",
+	"devDependencies": {
+		"eslint": "^9.4.0",
+		"mocha": "^10.4.0",
+		"neostandard": "^0.7.0",
+		"prettier": "^3.3.2"
+	},
+	"scripts": {
+		"lint": "eslint lib/*.js test/*.js",
+		"test": "npm run lint && mocha --reporter spec test/*-test.js",
+		"fix": "prettier --write lib/*.js test/*.js"
+	},
+	"license": "MIT"
+}
